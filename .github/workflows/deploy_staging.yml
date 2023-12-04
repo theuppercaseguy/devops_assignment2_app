@@ -51,7 +51,7 @@ jobs:
             
       - name: deployment message
         run: |
-          if [ ${{ success() }} == 'true ];then
+          if [ ${{ success() }} == 'true' ];then
             echo "Deployment successful"
           else
             echo "Deployment failed"
