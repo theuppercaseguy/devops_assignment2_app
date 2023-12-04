@@ -49,8 +49,13 @@ jobs:
             echo "1"
             npm run dev
             
-      - name: deployment message
+      - name: deployment message passed
         if: success()
         run: |
            echo "deployment passed"
-        
+           
+      - name: deployment message failed
+        if: failure()
+        run: |
+           echo "deployment failed"
+          
