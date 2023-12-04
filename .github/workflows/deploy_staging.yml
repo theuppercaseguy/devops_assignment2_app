@@ -43,7 +43,7 @@ jobs:
             source /home/ubuntu/.nvm/nvm.sh
             cd /home/ubuntu/dev_ass_2/devop_testapp/
             killall node
-            git pull
+            git pull origin main
             echo "1"
             npm run dev
             
