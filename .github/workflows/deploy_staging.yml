@@ -45,7 +45,7 @@ jobs:
             killall node
             git pull
             echo "1"
-            npm run dev &
+            npm run dev
             
       - name: deployment message passed
         if: success()
