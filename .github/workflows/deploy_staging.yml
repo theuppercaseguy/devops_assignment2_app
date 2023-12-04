@@ -20,8 +20,8 @@ jobs:
       - name: testing node
         run: |
           echo "node version is:"
-          node --v
-          npm --v
+          node -v
+          npm -v
           
       # - name: Install Dependencies
         # run: npm i
@@ -45,8 +45,6 @@ jobs:
             killall node
             git pull
             echo "1"
-            cd /home/ubuntu/dev_ass_2/devop_testapp/
-            echo "2"
             npm run dev
             
 
