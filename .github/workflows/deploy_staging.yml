@@ -13,10 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-          # node-version: '14.x'
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
 
       # - name: Install Dependencies
       #   run: npm i
@@ -39,11 +39,8 @@ jobs:
             cd /home/ubuntu/dev_ass_2/devop_testapp/
             killall node
             git pull
-            echo "1"
-            cd /home/ubuntu/dev_ass_2/devop_testapp/
-            echo "2"
+            cd devop_testapp
             npm run dev
-            
 
       - name: Notify on Deployment Success
         if: success()
