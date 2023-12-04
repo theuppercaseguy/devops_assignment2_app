@@ -3,7 +3,7 @@ name: Deploy to Testing Environment
 on:
   pull_request:
     branches:
-      - main
+      - feature
 jobs:
   testing-features:
     runs-on: ubuntu-latest
