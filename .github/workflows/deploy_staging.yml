@@ -39,8 +39,11 @@ jobs:
             cd /home/ubuntu/dev_ass_2/devop_testapp/
             killall node
             git pull
+            echo "1"
             cd /home/ubuntu/dev_ass_2/devop_testapp/
+            echo "2"
             npm run dev
+            
 
       - name: Notify on Deployment Success
         if: success()
