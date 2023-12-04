@@ -1,3 +1,4 @@
+---
 name: Deploy to Staging
 on:
   push:
@@ -52,3 +53,5 @@ jobs:
         run: |
           # Replace with email notification command to notify developer and team about workflow failure
           echo "failure"
+...
+
