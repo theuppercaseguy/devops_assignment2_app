@@ -50,12 +50,11 @@ jobs:
             npm run dev
             
 
-      - name: Notify on Deployment Success
-        if: success()
+      - name: Notify on Deployment Status
+        if: always()  
         run: |
-          echo "deployment passed"
-
-      - name: Notify on Deployment Failure
-        if: failure()
-        run: |
-          echo "deployment failed"
+          if [ ${{ success() }} == 'true' ]; then
+            echo "Deployment successful"
+          else
+            echo "Deployment failed"
+          fi
