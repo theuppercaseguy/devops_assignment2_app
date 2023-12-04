@@ -47,10 +47,9 @@ jobs:
             killall node
             git pull
             echo "1"
-            npm run dev
-            
+            npm run dev    
 
-      - name: Notify on Deployment Status
+      - name: Notify on Deployment Status        
         if: always()  
         run: |
           if [ ${{ success() }} == 'true' ]; then
