@@ -49,8 +49,7 @@ jobs:
             echo "1"
             npm run dev    
 
-      - name: Notify on Deployment Status        
-        if: always()  
+      - name: Notify on Deployment Status  
         run: |
           if [ ${{ success() }} == 'true' ]; then
             echo "Deployment successful"
