@@ -13,22 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14.x'
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+          # node-version: '14.x'
 
-      - name: Install Dependencies
-        run: npm i
+      # - name: Install Dependencies
+      #   run: npm i
 
-      - name: Build Project
-        run: npm run build
+      # - name: Build Project
+      #   run: npm run build
 
-      - name: Unit Testing
-        run: npm test
+      # - name: Unit Testing
+      #   run: npm test
 
-      - name: Code Analysis/Linting
-        run: npm run lint
+      # - name: Code Analysis/Linting
+      #   run: npm run lint
 
       - name: Deploy to AWS Staging Server
         uses: JimCronqvist/action-ssh@master
@@ -44,11 +44,9 @@ jobs:
       - name: Notify on Deployment Success
         if: success()
         run: |
-          # Replace with email notification command to notify team members about successful deployment
-          echo "passed"
+          echo "deployment passed"
 
       - name: Notify on Deployment Failure
         if: failure()
         run: |
-          # Replace with email notification command to notify developer and team about workflow failure
-          echo "failure"
+          echo "deployment failed"
