@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  first-job:
+  deploying-features:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
