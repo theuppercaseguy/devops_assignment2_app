@@ -1,0 +1,54 @@
+name: Deploy to Staging
+on:
+  push:
+    branches:
+      - main
+  pull:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Unit Testing
+        run: npm test
+
+      - name: Code Analysis/Linting
+        run: npm run lint
+
+      - name: Deploy to AWS Staging Server
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'ubuntu@34.207.198.176'
+          privatekey: ${{secrets.EC2_STAGING_SERVER_SSH_ACCESS}}
+          command: |
+            cd /home/ubuntu/dev_ass_2/devop_testapp/
+            killall node
+            git pull
+            npm run dev
+
+      - name: Notify on Deployment Success
+        if: success()
+        run: |
+          # Replace with email notification command to notify team members about successful deployment
+          echo "passed"
+
+      - name: Notify on Deployment Failure
+        if: failure()
+        run: |
+          # Replace with email notification command to notify developer and team about workflow failure
+          echo "failure"
