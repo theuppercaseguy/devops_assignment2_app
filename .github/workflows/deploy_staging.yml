@@ -50,5 +50,7 @@ jobs:
             npm run dev
             
       - name: deployment message
+        if: success()
         run: |
-          echo "hello"          
+           echo "deployment passed"
+        
