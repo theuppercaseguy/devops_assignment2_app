@@ -1,1 +1,0 @@
-ec2_staging_server_ssh_access // private key variable name
