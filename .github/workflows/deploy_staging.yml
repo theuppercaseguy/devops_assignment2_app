@@ -1,4 +1,7 @@
 name: Deploy to Staging
+
+run-name: ${{github.actor}} initiated the workflow - Deploy To Testing
+
 on:
   push:
     branches:
@@ -11,41 +14,62 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '14.x'
-      # - name: testing node
-      #   run: |
-      #     echo "node version is:"
-      #     node -v
-      #     npm -v
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: testing node
+        run: |
+          echo "node version is:"
+          node -v
+          npm -v
           
-      # - name: Install Dependencies
-        # run: npm i
+      - name: Install Dependencies
+        run: |
+          cd devapp
+          npm i
 
-      # - name: Build Project
-        # run: npm run build
+      - name: Build Project
+        run:  |
+          cd devapp
+          npm run build-react
 
-      # - name: Unit Testing
-      #   run: npm test
+      - name: Unit Testing
+        run:  |
+          cd devapp
+          npm test-react
 
-      # - name: Code Analysis/Linting
-      #   run: npm run lint
+      - name: Code Analysis/Linting
+        # run: npm run lint
+
+      # Deploy All Changes To The Staging Server
+      - name: Deploy To Changes To Staging Server
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: ~/Work/ass3/devop_assignment2_app/
+          remote_host: 3.84.5.63
+          remote_user: ubuntu
+          remote_key: ${{ secrets.EC2_STAGING_SERVER_SSH_ACCESS_3 }}
+
+
 
       - name: Deploy to AWS Staging Server
         uses: JimCronqvist/action-ssh@master
         with:
-          hosts: 'ubuntu@34.207.198.176'
-          privatekey: ${{secrets.EC2_STAGING_SERVER_SSH_ACCESS}}
+          hosts: 'ubuntu@3.84.5.63'
+          privatekey: ${{secrets.EC2_STAGING_SERVER_SSH_ACCESS_3}}
           command: |
             export NVM_DIR=/home/ubuntu/.nvm
             source /home/ubuntu/.nvm/nvm.sh
-            cd /home/ubuntu/dev_ass_2/devop_testapp/
+            cd /home/ubuntu/ass3/devop_assignment2_app/
             killall node
-            git pull
+            # git pull
             echo "1"
-            npm run dev
+            docker-compose down
+            docker-compose up -d
             
       - name: deployment message passed
         if: success()
